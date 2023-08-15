@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id               Int               @id @default(autoincrement())
+  name             String
+  lastName         String
+  email            String?           @unique
+  password         String?
+  role             Role              @relation(fields: [roleId], references: [id])
+  roleId           Int
+  depositOrders    DepositOrder[]
+  regionalOffice   RegionalOffice?   @relation(fields: [regionalOfficeId], references: [id])
+  regionalOfficeId Int
+  moneyCollentions MoneyCollention[]
+  isVisible        Boolean           @default(true)
+}
+
+model Role {
+  id                  Int        @id @default(autoincrement())
+  name                String
+  description         String?
+  employee            Employee[]
+  isVisible           Boolean    @default(true)
+  maxEmployeesAllowed Int        @default(1)
+}
+
+model DepositOrder {
+  id                    Int            @id @default(autoincrement())
+  orderNumber           String
+  startDate             DateTime
+  endDate               DateTime
+  solitudeDate          DateTime
+  deliveryDate          DateTime?
+  amount                Float
+  regional              RegionalOffice @relation(fields: [regionalId], references: [id])
+  regionalId            Int
+  employee              Employee       @relation(fields: [employeeId], references: [id])
+  employeeId            Int
+  status                String         @default("Emitido")
+  revisionStatus        String         @default("No Asignado")
+  moneyCollectionAmount Float?
+  expenseAmount         Float?
+  dollarAmountUSD       Float?
+  dollarAmountBs        Float?
+  envelopeAmount        Float?
+  depositAmount         Float?
+  deliveredDate         DateTime?
+  documentUrl           String?        @default("")
+  generatedReportUrl    String?        @default("")
+  reportUrl             String?        @default("")
+
+  depositOrders    DepositOrderBranchOffice[]
+  expense          Expense[]
+  dollar           Dollar[]
+  envelope         Envelope[]
+  deposit          Deposit[]
+  moneyCollections MoneyCollention[]
+}
+
+model DepositOrderBranchOffice {
+  id             Int          @id @default(autoincrement())
+  depositOrder   DepositOrder @relation(fields: [depositOrderId], references: [id])
+  depositOrderId Int
+  branchOfficeId Int
+  branchOffice   BranchOffice @relation(fields: [branchOfficeId], references: [id])
+  amount         Float
+}
+
+model RegionalOffice {
+  id                          Int            @id @default(autoincrement())
+  name                        String
+  branches                    BranchOffice[]
+  regionalAbbr                String?
+  depositOrders               DepositOrder[]
+  employee                    Employee[]
+  techobolDepositOrderCounter Int            @default(0)
+  megadisDepositOrderCounter  Int            @default(0)
+  isVisible                   Boolean        @default(true)
+}
+
+model BranchOffice {
+  id                   Int                        @id @default(autoincrement())
+  name                 String
+  address              String
+  regionalOffice       RegionalOffice             @relation(fields: [regionalOfficeId], references: [id])
+  regionalOfficeId     Int
+  isVisible            Boolean                    @default(true)
+  DepositOrderSucursal DepositOrderBranchOffice[]
+  dollars              Dollar[]
+  moneyCollentcions    MoneyCollention[]
+  expenses             Expense[]
+  fromBranchOffices    Envelope[]                 @relation("fromBranchOffice")
+  toBranchOffices      Envelope[]                 @relation("toBranchOffice")
+}
+
+model Account {
+  id          Int          @id @default(autoincrement())
+  name        String
+  subAccounts SubAccount[]
+  expenses    Expense[]
+  isVisible   Boolean      @default(true)
+}
+
+model SubAccount {
+  id        Int       @id @default(autoincrement())
+  name      String
+  account   Account   @relation(fields: [accountId], references: [id])
+  accountId Int
+  expeneses Expense[]
+  isVisible Boolean   @default(true)
+}
+
+model MoneyCollention {
+  id             Int          @id @default(autoincrement())
+  depositOrderId Int
+  depositOrder   DepositOrder @relation(fields: [depositOrderId], references: [id])
+  branchOfficeId Int
+  branchOffice   BranchOffice @relation(fields: [branchOfficeId], references: [id])
+  date           DateTime
+  amount         Float
+  deliveredBy    String
+  receivedBy     Employee     @relation(fields: [receivedById], references: [id])
+  receivedById   Int
+}
+
+model Expense {
+  id             Int          @id @default(autoincrement())
+  depositOrderId Int
+  depositOrder   DepositOrder @relation(fields: [depositOrderId], references: [id])
+  documentType   String
+  documentNumber String
+  date           DateTime
+  branchOfficeId Int
+  branchOffice   BranchOffice @relation(fields: [branchOfficeId], references: [id])
+  expenseType    String
+  amount         Float
+  accountId      Int
+  account        Account      @relation(fields: [accountId], references: [id])
+  subAccountId   Int
+  subAccount     SubAccount   @relation(fields: [subAccountId], references: [id])
+  description    String
+}
+
+model Dollar {
+  id             Int          @id @default(autoincrement())
+  depositOrderId Int
+  depositOrder   DepositOrder @relation(fields: [depositOrderId], references: [id])
+  branchOfficeId Int
+  branchOffice   BranchOffice @relation(fields: [branchOfficeId], references: [id])
+  date           DateTime
+  amount         Float
+  amountBs       Float
+  description    String
+}
+
+model Envelope {
+  id                 Int          @id @default(autoincrement())
+  depositOrderId     Int
+  depositOrder       DepositOrder @relation(fields: [depositOrderId], references: [id])
+  date               DateTime
+  fromBranchOfficeId Int
+  fromBranchOffice   BranchOffice @relation("fromBranchOffice", fields: [fromBranchOfficeId], references: [id])
+  toBranchOfficeId   Int
+  toBranchOffice     BranchOffice @relation("toBranchOffice", fields: [toBranchOfficeId], references: [id])
+  amount             Float
+  description        String
+}
+
+model Deposit {
+  id             Int          @id @default(autoincrement())
+  depositOrderId Int
+  depositOrder   DepositOrder @relation(fields: [depositOrderId], references: [id])
+  voucherNumber  String
+  bank           String
+  date           DateTime
+  amount         Float
+  description    String
+}
