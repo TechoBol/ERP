@@ -1,3 +1,5 @@
+'use client'
+
 import { RiMoneyCnyBoxFill } from 'react-icons/ri'
 import { RxHamburgerMenu } from 'react-icons/rx'
 
@@ -12,7 +14,7 @@ interface NavbarProps {
 
 const Navbar = ({ onClickSidebarButton }: NavbarProps) => {
   const { isLoggedIn } = useLoginStore()
-//   const isLoggedIn = true
+  //   const isLoggedIn = true
   return (
     <div className='h-16 bg-white border-b border-slate-200 px-3 w-full'>
       <div className='relative flex justify-center items-center h-full'>
@@ -22,8 +24,9 @@ const Navbar = ({ onClickSidebarButton }: NavbarProps) => {
           {isLoggedIn && (
             <div className='pl-3'>
               <Button
-                variant={'icon'}    
-                size={'icon'}            onClick={onClickSidebarButton}
+                variant={'icon'}
+                size={'icon'}
+                onClick={onClickSidebarButton}
               >
                 <RxHamburgerMenu color={'#374151'} />
               </Button>
@@ -39,7 +42,6 @@ const Navbar = ({ onClickSidebarButton }: NavbarProps) => {
             <TbMoon className='text-slate-900 text-xl ' />
           </div> */}
           {/* {isLoggedIn && <UserMenu />} */}
-     
         </div>
       </div>
     </div>

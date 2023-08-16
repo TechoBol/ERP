@@ -1,5 +1,8 @@
 'use client'
 
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
@@ -15,6 +18,11 @@ import {
   FormMessage
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { useToast } from '@/components/ui/use-toast'
+
+import { useLoginStore } from '@/store/loginStore'
+import { logIn } from '@/services/finance/authentication'
+
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'El correo electrónico no es válido' }),
@@ -22,16 +30,46 @@ const loginSchema = z.object({
     .string()
     .nonempty({ message: 'La contraseña no puede estar vacía' })
 })
+
+
 const LoginPage = () => {
+  const { setFullName, setRole, changeLogInState, setToken, isLoggedIn } = useLoginStore()
+  const router = useRouter()
+  const {toast} = useToast()
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: { email: '', password: '' }
   })
 
-  const onSubmit = (data: z.infer<typeof loginSchema>) => {
-    console.log(data)
+  const onSubmit = async (data: z.infer<typeof loginSchema>) => {
+    const employee = await logIn(data.email, data.password)
+
+    if (!employee) { 
+      console.log('aaa')
+      toast({ 
+        description: 'El correo electrónico o la contraseña son incorrectos',
+      })
+      return 
+    }
+
+    toast({ 
+      title: 'Bienvenido',
+    })
+
+    setFullName(`${employee.name} ${employee.lastName}`)
+    setRole(employee.role)
+    setToken(employee.token)
+    changeLogInState()
+    router.push('/finance/deposit-order')
   }
+
+  useEffect(() => {
+      isLoggedIn ? router.push('/finance/deposit-order') : null
+   }, [] )
+
   return (
+  
     <Form {...form}>
       <form
         onSubmit={e => {
@@ -77,6 +115,7 @@ const LoginPage = () => {
         </div>
       </form>
     </Form>
+    
   )
 }
 
