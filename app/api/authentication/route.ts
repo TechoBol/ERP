@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server'
 import bcriptjs from 'bcryptjs'
 import { prisma } from '@/lib/prisma'
 import jsonwebtolken from 'jsonwebtoken'
-import { use } from 'react'
 
 export async function POST (request: Request) {
   const body = await request.json()

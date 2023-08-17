@@ -8,7 +8,7 @@ export default function Home () {
     <main className='flex min-h-screen flex-col items-center justify-between p-24'>
       <p>Esto es la pagina principal de Techobol</p>
       <div className='flex space-x-5'>
-        <Link href={'/finance'}>
+        <Link href={'/finance/login'}>
           <Button className='bg-blue-500'> Ir a finanzas </Button>{' '}
         </Link>
         <Link href={'/human-resources'}>
