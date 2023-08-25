@@ -39,10 +39,7 @@ export async function POST (request: Request) {
 
   const token = jsonwebtolken.sign(
     { email: user.email },
-    process.env.JWTSECRET as string,
-    {
-      expiresIn: '1d'
-    }
+    process.env.JWTSECRET as string
   )
 
   const returnUser = { 

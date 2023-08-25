@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link'
 
 import {
@@ -49,7 +51,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
               pathname.includes('deposit-order')
                 ? 'bg-gray-100'
                 : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-blue-100 rounded-md'>
               <TbFileDescription
@@ -73,7 +75,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
               pathname.includes('money-collection')
                 ? 'bg-gray-100'
                 : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-amber-100 rounded-md'>
               <BiCoinStack
@@ -97,7 +99,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
               pathname.includes('expenses')
                 ? 'bg-gray-100'
                 : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-red-100 rounded-md'>
               <TbTags
@@ -120,7 +122,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
           <div
             className={`${
               pathname.includes('dollars') ? 'bg-gray-100' : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-green-100 rounded-md'>
               <BsCashStack
@@ -144,7 +146,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
               pathname.includes('envelopes')
                 ? 'bg-gray-100'
                 : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-cyan-100 rounded-md'>
               <FaRegEnvelope
@@ -168,7 +170,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
               pathname.includes('deposits')
                 ? 'bg-gray-100'
                 : 'bg-white'
-            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+            } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
           >
             <div className='bg-violet-100 rounded-md'>
               <AiOutlineBank
@@ -200,7 +202,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
                   location.pathname.includes('users')
                     ? 'bg-gray-100'
                     : 'bg-white'
-                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
               >
                 <div className='bg-amber-100 rounded-md'>
                   <TbUsers
@@ -224,7 +226,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
                   location.pathname.includes('branch-offices')
                     ? 'bg-gray-100'
                     : 'bg-white'
-                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
               >
                 <div className='bg-violet-100 rounded-md'>
                   <TbHome
@@ -248,7 +250,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
                   location.pathname.endsWith('/accounts')
                     ? 'bg-gray-100'
                     : 'bg-white'
-                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all`}
               >
                 <div className='bg-red-100 rounded-md'>
                   <TbListDetails
@@ -272,7 +274,7 @@ const Sidebar = ({ isOpen }: { isOpen: boolean }) => {
                   location.pathname.endsWith('sub-accounts')
                     ? 'bg-gray-100'
                     : 'bg-white'
-                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md`}
+                } select-none hover:cursor-pointer flex items-center space-x-2  pl-5 p-3 hover:bg-gray-100 rounded-md transition-all` }
               >
                 <div className='bg-blue-100 rounded-md'>
                   <TbList
