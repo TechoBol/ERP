@@ -10,7 +10,7 @@ export async function PUT (
 
     const employee = await prisma.employee.update({
       where: {
-        id: Number(employeeId)
+        id: employeeId
       },
       data: {
         isVisible: false

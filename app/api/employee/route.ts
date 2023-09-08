@@ -14,11 +14,11 @@ export async function GET (_request: Request) {
             name: true
           }
         },
-        regionalOffice: { 
-          select: { 
-            name: true
-          }
-        }
+        // regionalOffice: { 
+        //   select: { 
+        //     name: true
+        //   }
+        // }
       }
     })
   

@@ -16,7 +16,7 @@ export default function RootLayout ({
   children: React.ReactNode
 }) {
   return (
-    <html lang='en' className='h-screen w-screen'>
+    <html lang='en' className='h-screen w-screen box-border'>
       <body className={inter.className}>
         {children} 
         <Toaster />
